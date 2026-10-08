@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atelier Taquin — Android</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 25px;
+            color: #222;
+            background: #ffffff;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #111;
+        }
+
+        h2 {
+            font-size: 1.35em;
+            font-weight: 700;
+            color: #17365d;
+            margin-top: 32px;
+            margin-bottom: 12px;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        ul, ol {
+            margin-top: 8px;
+            padding-left: 30px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        code {
+            font-family: Consolas, "Courier New", monospace;
+            background: #f2f2f2;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+
+        pre {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 15px;
+            overflow-x: auto;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Atelier Taquin — Android</h1>
+
+    <p>
+        Application Android native permettant de créer un taquin à partir
+        d’une image choisie ou d’une copie d’écran.
+    </p>
+
+    <h2>Prérequis</h2>
+
+    <ul>
+        <li>Android Studio avec JDK 17 ou supérieur ;</li>
+        <li>SDK Android 36 ;</li>
+        <li>un appareil ou émulateur sous Android 10 (API 29) minimum.</li>
+    </ul>
+
+    <h2>Construire et tester</h2>
+
+    <pre><code>./gradlew testDebugUnitTest assembleDebug</code></pre>
+
+    <p>
+        L’APK de développement est produit dans
+        <code>app/build/outputs/apk/debug/</code>.
+    </p>
+
+    <h2>Parcours</h2>
+
+    <ol>
+        <li>
+            <strong>Accès</strong> — explique les autorisations.
+            Le choix d’image ne demande aucun accès global au stockage.
+            La copie d’écran utilise le consentement système MediaProjection
+            et un service de premier plan.
+        </li>
+
+        <li>
+            <strong>Paramétrage</strong> — définit la taille initiale des cases
+            et la grille, choisit la source, puis déplace ou redimensionne
+            le cadre de découpe. Le retaillage conserve des cases carrées.
+        </li>
+
+        <li>
+            <strong>Jeu</strong> — présente un plateau toujours soluble,
+            déplace une seule case par appui et révèle l’image complète
+            à la victoire.
+        </li>
+    </ol>
+
+    <p>
+        Les écrans respectent les zones sûres Android et les images/plateaux
+        sont mis à l’échelle pour tenir dans l’espace disponible sans
+        défilement interne.
+    </p>
+
+    <h2>Architecture</h2>
+
+    <ul>
+        <li>
+            <code>domain</code> : règles Kotlin pures du cadrage et du taquin ;
+        </li>
+        <li>
+            <code>operations</code> : sélection, décodage, découpage et MediaProjection ;
+        </li>
+        <li>
+            <code>events_bindings</code> : état, événements et orchestration ;
+        </li>
+        <li>
+            <code>ui</code> : composition visuelle Compose sans accès direct aux opérations.
+        </li>
+    </ul>
+
+</body>
+</html>
